@@ -1,0 +1,7 @@
+database:
+ host: "host
+ port: "5432"
+ user: "test"
+ password: "test"
+ dbname: "test"
+ ssl: "disable"
