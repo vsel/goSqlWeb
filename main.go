@@ -8,22 +8,28 @@ import (
 
 	"github.com/doug-martin/goqu/v8"
 	_ "github.com/doug-martin/goqu/v8/dialect/postgres"
-	source "github.com/vsel/goSqlWeb/source"
+	service "github.com/vsel/goSqlWeb/service"
 )
 
 func main() {
-	config := source.GetConfig(".")
+	config := service.GetConfig(".")
 
-	db, err := source.ConnectToDB(config)
+	db, err := service.ConnectToDB(config)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = service.ListenHTTP(config)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	dialect := goqu.Dialect("postgres")
 
-	comments, err := source.GetTestData(dialect, db)
+	comments, err := service.GetTestData(dialect, db)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(comments)
+
 }

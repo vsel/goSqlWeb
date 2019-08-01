@@ -1,7 +1,9 @@
 database:
- host: "host
+ host: "host"
  port: "5432"
  user: "test"
  password: "test"
  dbname: "test"
  ssl: "disable"
+httpserver:
+ port: "8080"
