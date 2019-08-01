@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	_ "github.com/lib/pq"
@@ -20,8 +21,9 @@ func main() {
 
 	dialect := goqu.Dialect("postgres")
 
-	err = source.InitTables(dialect, db)
+	comments, err := source.GetTestData(dialect, db)
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println(comments)
 }
