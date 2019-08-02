@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	_ "github.com/lib/pq"
+	_ "github.com/jackc/pgx"
+	_ "github.com/jackc/pgx/stdlib"
 
 	"github.com/doug-martin/goqu/v8"
 	_ "github.com/doug-martin/goqu/v8/dialect/postgres"

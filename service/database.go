@@ -40,7 +40,7 @@ func ConnectToDB(config configStruct.Configuration) (*sql.DB, error) {
 	}
 
 	fmt.Println("connecting to: " + connStr)
-	return sql.Open("postgres", connStr)
+	return sql.Open("pgx", connStr)
 }
 
 // GetTestData get test data
