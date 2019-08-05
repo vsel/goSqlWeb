@@ -32,19 +32,26 @@ func getConnectionString(config configStruct.Configuration) (string, error) {
 	return stringParsed.String(), nil
 }
 
+// DB is
+type DB struct {
+	*sql.DB
+}
+
 // ConnectToDB create db connection
-func ConnectToDB(config configStruct.Configuration) (*sql.DB, error) {
+func ConnectToDB(config configStruct.Configuration) (*DB, error) {
 	connStr, err := getConnectionString(config)
 	if err != nil {
 		return nil, err
 	}
 
 	fmt.Println("connecting to: " + connStr)
-	return sql.Open("pgx", connStr)
+	db, err := sql.Open("pgx", connStr)
+	return &DB{db}, err
 }
 
 // GetTestData get test data
-func GetTestData(dialect goqu.DialectWrapper, db *sql.DB) ([]models.Comments, error) {
+func (db *DB) GetTestData() ([]models.Comments, error) {
+	dialect := goqu.Dialect("postgres")
 	dialectString := dialect.From("comments").Where(goqu.Ex{"author_id": 1})
 	query, args, err := dialectString.ToSQL()
 	if err != nil {
